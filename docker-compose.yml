@@ -1,19 +1,19 @@
-version: "3.7"
+version: "3.7" # docker compose schema version
 
-services:
-  item-app:
-    image: ghcr.io/arrizki16/item-app:v1
+services: 
+  item-app: # service name for frontend application
+    image: ghcr.io/arrizki16/item-app:v1 # pulling an image from my github container registry
     ports:
-      - 80:8080
+      - 80:8080 # expose container port to host port (8080 -> 80)
     depends_on:
-      - "item-db"
-    restart: always
+      - "item-db" # item-app will start after item-db services
+    restart: always # container will automatically restart after being stopped except when manually stopped
   
-  item-db:
-    image: mongo:3
+  item-db: # service name for database mongo application
+    image: mongo:3 # image used for mongo application from Dockerhub
     volumes:
-      - app-db:/data/db
-    restart: always
+      - app-db:/data/db # using app-db volume and attach it to /data/db directory
+    restart: always # container will automatically restart after being stopped except when manually stopped
 
 volumes:
-  app-db:
+  app-db: # Create a volumen with app-db name
